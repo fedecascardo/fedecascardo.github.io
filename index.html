@@ -29,6 +29,14 @@
                     <a class="mdl-navigation__link" href="">Link</a>
                 </nav>
             </div>
+            <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+                <a href="#scroll-tab-1" class="mdl-layout__tab is-active">Tab 1</a>
+                <a href="#scroll-tab-2" class="mdl-layout__tab">Tab 2</a>
+                <a href="#scroll-tab-3" class="mdl-layout__tab">Tab 3</a>
+                <a href="#scroll-tab-4" class="mdl-layout__tab">Tab 4</a>
+                <a href="#scroll-tab-5" class="mdl-layout__tab">Tab 5</a>
+                <a href="#scroll-tab-6" class="mdl-layout__tab">Tab 6</a>
+            </div>
         </header>
         <div class="mdl-layout__drawer">
             <span class="mdl-layout-title">Title</span>
@@ -40,122 +48,155 @@
             </nav>
         </div>
         <main class="mdl-layout__content">
-
-
             <div class="page-content">
-
-                <h4>Buscar por clave</h4>
-                <span>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="clavebus">
-                        <label class="mdl-textfield__label" for="sample3">Clave...</label>
+                <section class="mdl-layout__tab-panel is-active" id="scroll-tab-1">
+                    <div class="page-content">
+                        <h4>Buscar por clave</h4>
+                        <span>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="text" id="clavebus">
+                                <label class="mdl-textfield__label" for="sample3">Clave...</label>
+                            </div>
+                        </span>
+                        <span>
+                            <button onclick="read()" class="mdl-button mdl-js-button mdl-button--primary">Buscar
+                                Clave</button>
+                        </span>
                     </div>
-                </span>
-                <span>
-                    <button onclick="read()" class="mdl-button mdl-js-button mdl-button--primary">Buscar Clave</button>
-                </span>
+                </section>
+                <section class="mdl-layout__tab-panel" id="scroll-tab-2">
+                    <div class="page-content">
+                        <h3>Buscar por nombre</h3>
+                        <span>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="text" id="nombrebus">
+                                <label class="mdl-textfield__label" for="nombrebus">nombre...</label>
+                            </div>
+                        </span>
 
-                <h3>Buscar por nombre</h3>
-                <span>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="nombrebus">
-                        <label class="mdl-textfield__label" for="nombrebus">nombre...</label>
+                        <div id="resultadosbusq">
+                        </div>
+                        <span>
+                            <button onclick="search()"
+                                class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+                                <i class="material-icons">search</i>
+                            </button>
+                            <button onclick="readAll()"
+                                class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+                                <i class="material-icons">person_search</i>
+                            </button>
+                            <button onclick="remove()"
+                                class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+                                <i class="material-icons">delete</i>
+                            </button>
+                        </span>
                     </div>
-                </span>
+                </section>
+                <section class="mdl-layout__tab-panel" id="scroll-tab-3">
+                    <div class="page-content">
+                        <h4>Agregar</h4>
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--3-col">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="idUser">
+                                    <label class="mdl-textfield__label" for="idUser">ID...</label>
+                                </div>
+                            </div>
+                            <div class="mdl-cell mdl-cell--3-col">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="nombreUser">
+                                    <label class="mdl-textfield__label" for="nombreUser">Nombre...</label>
+                                </div>
+                            </div>
+                            <div class="mdl-cell mdl-cell--3-col">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?"
+                                        id="edadUser">
+                                    <label class="mdl-textfield__label" for="edadUser">Edad...</label>
+                                    <span class="mdl-textfield__error">Input is not a number!</span>
+                                </div>
+                            </div>
+                            <div class="mdl-cell mdl-cell--3-col">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" type="text" id="emailUser">
+                                    <label class="mdl-textfield__label" for="emailUser">email...</label>
+                                </div>
+                            </div>
+                        </div>
 
-                <div id="resultadosbusq">
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--4-col"><span>
+                                    <button onclick="add()" id="btnAgregar"
+                                        class="mdl-button mdl-js-button mdl-button--primary">Agregar
+                                        Info</button>
+                                </span></div>
+                            <div class="mdl-cell mdl-cell--4-col"><span>
+                                    <button onclick="update()" id="btnUpdate"
+                                        class="mdl-button mdl-js-button mdl-button--primary">Actualizar</button>
+                                </span></div>
+                            <div class="mdl-cell mdl-cell--4-col"><span>
+                                    <button onclick="cancelUpdate()" id="btnCancelUpdate"
+                                        class="mdl-button mdl-js-button mdl-button--primary">Cancelar</button>
+                                </span></div>
+                        </div>
 
-
-                </div>
-                <span>
-                    <button onclick="search()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-                        <i class="material-icons">search</i>
-                    </button>
-                    <button onclick="readAll()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-                        <i class="material-icons">person_search</i>
-                    </button>
-                    <button onclick="remove()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-                        <i class="material-icons">delete</i>
-                    </button>
-                </span>
-
-
-
-
-                <h4>Agregar</h4>
-
-                <div class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--3-col"><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="idUser">
-                        <label class="mdl-textfield__label" for="idUser">ID...</label>
-                    </div></div>
-                    <div class="mdl-cell mdl-cell--3-col"><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="nombreUser">
-                        <label class="mdl-textfield__label" for="nombreUser">Nombre...</label>
-                    </div></div>
-                    <div class="mdl-cell mdl-cell--3-col"><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="edadUser">
-                        <label class="mdl-textfield__label" for="edadUser">Edad...</label>
-                        <span class="mdl-textfield__error">Input is not a number!</span>
-                    </div></div>
-                    <div class="mdl-cell mdl-cell--3-col"><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="emailUser">
-                        <label class="mdl-textfield__label" for="emailUser">email...</label>
-                    </div></div>
-                </div>
-
-
-                <div class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--4-col"><span>
-                        <button onclick="add()" id="btnAgregar"
-                            class="mdl-button mdl-js-button mdl-button--primary">Agregar
-                            Info</button>
-                    </span></div>
-                    <div class="mdl-cell mdl-cell--4-col"><span>
-                        <button onclick="update()" id="btnUpdate"
-                            class="mdl-button mdl-js-button mdl-button--primary">Actualizar</button>
-                    </span></div>
-                    <div class="mdl-cell mdl-cell--4-col"><span>
-                        <button onclick="cancelUpdate()" id="btnCancelUpdate"
-                            class="mdl-button mdl-js-button mdl-button--primary">Cancelar</button>
-                    </span></div>
-                  </div>
-
-
-
-                <h3>Editar</h3>
-                <span>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="claveEditar">
-                        <label class="mdl-textfield__label" for="claveEditar">Clave...</label>
                     </div>
-                </span>
-                <span>
-                    <button onclick="edit()" class="mdl-button mdl-js-button mdl-button--primary">Edit data</button>
-                </span>
+                </section>
+                <section class="mdl-layout__tab-panel" id="scroll-tab-4">
+                    <div class="page-content">
+                        <h3>Editar</h3>
+                        <span>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="text" id="claveEditar">
+                                <label class="mdl-textfield__label" for="claveEditar">Clave...</label>
+                            </div>
+                        </span>
+                        <span>
+                            <button onclick="edit()" class="mdl-button mdl-js-button mdl-button--primary">Edit
+                                data</button>
+                        </span>
 
-                <h3>Eliminar</h3>
-                <span>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="claveeliminar">
-                        <label class="mdl-textfield__label" for="claveeliminar">Clave...</label>
+                        <h3>Eliminar</h3>
+                        <span>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="text" id="claveeliminar">
+                                <label class="mdl-textfield__label" for="claveeliminar">Clave...</label>
+                            </div>
+                        </span>
+
+                        <span>
+                            <button onclick="remove()" class="mdl-button mdl-js-button mdl-button--primary">Delete
+                                data</button>
+                        </span>
                     </div>
-                </span>
+                </section>
+                <section class="mdl-layout__tab-panel" id="scroll-tab-5">
+                    <div class="page-content">
+                        <h3>Admin</h3>
+                        <span>
+                            <select name="claves" id="claves">
 
-                <span>
-                    <button onclick="remove()" class="mdl-button mdl-js-button mdl-button--primary">Delete data</button>
-                </span>
+                            </select>
+                        </span>
+                        <span>
+                            <button onclick="cargarCombo()" class="mdl-button mdl-js-button mdl-button--primary">Cargar
+                                combo</button>
+                        </span>
+                    </div>
+                </section>
 
-                <h3>Admin</h3>
-                <span>
-                    <select name="claves" id="claves">
 
-                    </select>
-                </span>
-                <span>
-                    <button onclick="cargarCombo()" class="mdl-button mdl-js-button mdl-button--primary">Cargar
-                        combo</button>
-                </span>
+
+
+
+
+
+
+
+
+
+
+
             </div>
         </main>
     </div>
