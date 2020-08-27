@@ -1,19 +1,151 @@
 <!DOCTYPE html>
+
 <html>
+
 <head>
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-<title>Titulo</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset = utf-8" />
+    <script src="js/main.js"></script>
 </head>
+
 <body>
+    <!-- Always shows a header, even in smaller screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title">Title</span>
+                <!-- Add spacer, to align navigation to the right -->
+                <div class="mdl-layout-spacer"></div>
+                <!-- Navigation. We hide it in small screens. -->
+                <nav class="mdl-navigation mdl-layout--large-screen-only">
+                    <a class="mdl-navigation__link" href="">Link</a>
+                    <a class="mdl-navigation__link" href="">Link</a>
+                    <a class="mdl-navigation__link" href="">Link</a>
+                    <a class="mdl-navigation__link" href="">Link</a>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">Title</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="">Link</a>
+                <a class="mdl-navigation__link" href="">Link</a>
+                <a class="mdl-navigation__link" href="">Link</a>
+                <a class="mdl-navigation__link" href="">Link</a>
+            </nav>
+        </div>
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                <h3>Buscar por clave</h3>
+                <span>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="clavebus">
+                        <label class="mdl-textfield__label" for="sample3">Clave...</label>
+                    </div>
+                </span>
+                <span>
+                    <button onclick="read()" class="mdl-button mdl-js-button mdl-button--primary">Buscar Clave</button>
+                </span>
 
-<h1>Hola!!</h1>
-<p>Me llamo Fede</p>
+                <h3>Buscar por nombre</h3>
+                <span>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="nombrebus">
+                        <label class="mdl-textfield__label" for="nombrebus">nombre...</label>
+                    </div>
+                </span>
 
-<!-- Colored FAB button -->
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-  <i class="material-icons">add</i>
-</button>
+                <div id="resultadosbusq">
+
+
+                </div>
+                <span>
+                    <button onclick="search()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+                        <i class="material-icons">search</i>
+                    </button>
+                    <button onclick="readAll()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+                        <i class="material-icons">person_search</i>
+                    </button>
+                    <button onclick="remove()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+                        <i class="material-icons">delete</i>
+                    </button>
+                </span>
+                <h3>Agregar</h3>
+                <span>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="idUser">
+                        <label class="mdl-textfield__label" for="idUser">ID...</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="nombreUser">
+                        <label class="mdl-textfield__label" for="nombreUser">Nombre...</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="edadUser">
+                        <label class="mdl-textfield__label" for="edadUser">Edad...</label>
+                        <span class="mdl-textfield__error">Input is not a number!</span>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="emailUser">
+                        <label class="mdl-textfield__label" for="emailUser">email...</label>
+                    </div>
+                </span>
+                <span>
+                    <span>
+                        <button onclick="add()" id="btnAgregar"
+                            class="mdl-button mdl-js-button mdl-button--primary">Agregar
+                            Info</button>
+                    </span>
+                    <span>
+                        <button onclick="update()" id="btnUpdate"
+                            class="mdl-button mdl-js-button mdl-button--primary">Actualizar</button>
+                    </span>
+                    <span>
+                        <button onclick="cancelUpdate()" id="btnCancelUpdate"
+                            class="mdl-button mdl-js-button mdl-button--primary">Cancelar</button>
+                    </span>
+                </span>
+
+                <h3>Editar</h3>
+                <span>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="claveEditar">
+                        <label class="mdl-textfield__label" for="claveEditar">Clave...</label>
+                    </div>
+                </span>
+                <span>
+                    <button onclick="edit()" class="mdl-button mdl-js-button mdl-button--primary">Edit data</button>
+                </span>
+
+                <h3>Eliminar</h3>
+                <span>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="claveeliminar">
+                        <label class="mdl-textfield__label" for="claveeliminar">Clave...</label>
+                    </div>
+                </span>
+
+                <span>
+                    <button onclick="remove()" class="mdl-button mdl-js-button mdl-button--primary">Delete data</button>
+                </span>
+
+                <h3>Admin</h3>
+                <span>
+                    <select name="claves" id="claves">
+
+                    </select>
+                </span>
+                <span>
+                    <button onclick="cargarCombo()" class="mdl-button mdl-js-button mdl-button--primary">Cargar
+                        combo</button>
+                </span>
+            </div>
+        </main>
+    </div>
 </body>
+
 </html>
