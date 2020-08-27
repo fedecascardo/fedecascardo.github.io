@@ -39,7 +39,10 @@
             </nav>
         </div>
         <main class="mdl-layout__content">
+
+
             <div class="page-content">
+
                 <h3>Buscar por clave</h3>
                 <span>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -74,41 +77,50 @@
                         <i class="material-icons">delete</i>
                     </button>
                 </span>
+
+
+
+
                 <h3>Agregar</h3>
-                <span>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--3-col"><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" id="idUser">
                         <label class="mdl-textfield__label" for="idUser">ID...</label>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    </div></div>
+                    <div class="mdl-cell mdl-cell--3-col"><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" id="nombreUser">
                         <label class="mdl-textfield__label" for="nombreUser">Nombre...</label>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    </div></div>
+                    <div class="mdl-cell mdl-cell--3-col"><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="edadUser">
                         <label class="mdl-textfield__label" for="edadUser">Edad...</label>
                         <span class="mdl-textfield__error">Input is not a number!</span>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    </div></div>
+                    <div class="mdl-cell mdl-cell--3-col"><div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" id="emailUser">
                         <label class="mdl-textfield__label" for="emailUser">email...</label>
-                    </div>
-                </span>
-                <span>
-                    <span>
+                    </div></div>
+                </div>
+
+
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--4-col"><span>
                         <button onclick="add()" id="btnAgregar"
                             class="mdl-button mdl-js-button mdl-button--primary">Agregar
                             Info</button>
-                    </span>
-                    <span>
+                    </span></div>
+                    <div class="mdl-cell mdl-cell--4-col"><span>
                         <button onclick="update()" id="btnUpdate"
                             class="mdl-button mdl-js-button mdl-button--primary">Actualizar</button>
-                    </span>
-                    <span>
+                    </span></div>
+                    <div class="mdl-cell mdl-cell--4-col"><span>
                         <button onclick="cancelUpdate()" id="btnCancelUpdate"
                             class="mdl-button mdl-js-button mdl-button--primary">Cancelar</button>
-                    </span>
-                </span>
+                    </span></div>
+                  </div>
+
+
 
                 <h3>Editar</h3>
                 <span>
