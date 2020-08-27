@@ -37,27 +37,6 @@ request.onupgradeneeded = function (event) {
     }
 }
 
-function read() {
-    var transaction = db.transaction(["employee"]);
-    var objectStore = transaction.objectStore("employee");
-    var clave = document.getElementById("clavebus").value;
-    var request = objectStore.get(clave);
-    alert(clave)
-
-    request.onerror = function (event) {
-        alert("Unable to retrieve daa from database!");
-    };
-
-    request.onsuccess = function (event) {
-        // Do something with the request.result!
-        if (request.result) {
-            alert("Name: " + request.result.name + ", Age: " + request.result.age + ", Email: " + request.result.email);
-        } else {
-            alert("Kenny couldn't be found in your database!");
-        }
-    };
-}
-
 function readAll() {
     var objectStore = db.transaction("employee").objectStore("employee");
     let nombres = "Read all:"
@@ -66,7 +45,7 @@ function readAll() {
 
         if (cursor) {
             //alert("Name for id " + cursor.key + " is " + cursor.value.name + ", Age: " + cursor.value.age + ", Email: " + cursor.value.email);
-            nombres = nombres + "-" + cursor.value.name
+            nombres = nombres + '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">' + cursor.value.name.charAt(0).toUpperCase() + '</span><span class="mdl-chip__text">' + cursor.value.name + '</span></span>'
             cursor.continue();
         } else {
             //alert("No more entries!");
