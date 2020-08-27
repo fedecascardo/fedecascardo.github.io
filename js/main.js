@@ -9,12 +9,12 @@ window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange ||
     window.msIDBKeyRange
 
 if (!window.indexedDB) {
-    window.alert("Your browser doesn't support a stable version of IndexedDB.")
+    window.alert("Su Navegador no soporta la base de datos utilizada por el sistema.")
 }
 
-const employeeData = [
-    { id: "00-01", name: "gopal", age: 35, email: "gopal@tutorialspoint.com" },
-    { id: "00-02", name: "prasad", age: 32, email: "prasad@tutorialspoint.com" }
+const dataLotes = [
+    { id: "VA1231A", campo: "Campo123", superficie: 35, hibrido: "Hibrido1" },
+    { id: "VA1231B", campo: "Campo123", superficie: 32, hibrido: "Hibrido2" }
 ];
 var db;
 var request = window.indexedDB.open("newDatabase", 1);
@@ -30,110 +30,110 @@ request.onsuccess = function (event) {
 
 request.onupgradeneeded = function (event) {
     var db = event.target.result;
-    var objectStore = db.createObjectStore("employee", { keyPath: "id" });
+    var objectStore = db.createObjectStore("tablaLotes", { keyPath: "id" });
 
-    for (var i in employeeData) {
-        objectStore.add(employeeData[i]);
+    for (var i in dataLotes) {
+        objectStore.add(dataLotes[i]);
     }
 }
 
 function readAll() {
-    var objectStore = db.transaction("employee").objectStore("employee");
-    let nombres = "Read all:"
+    var objectStore = db.transaction("tablaLotes").objectStore("tablaLotes");
+    let infoLotes = "Listado:"
     objectStore.openCursor().onsuccess = function (event) {
         var cursor = event.target.result;
 
         if (cursor) {
-            //alert("Name for id " + cursor.key + " is " + cursor.value.name + ", Age: " + cursor.value.age + ", Email: " + cursor.value.email);
-            nombres = nombres + '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">' + cursor.value.name.charAt(0).toUpperCase() + '</span><span class="mdl-chip__text">' + cursor.value.name + '</span></span>'
+            //alert("campo for id " + cursor.key + " is " + cursor.value.campo + ", superficie: " + cursor.value.superficie + ", hibrido: " + cursor.value.hibrido);
+            infoLotes = infoLotes + '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">' + cursor.value.campo.charAt(0).toUpperCase() + '</span><span class="mdl-chip__text">' + cursor.value.campo + '</span></span>'
             cursor.continue();
         } else {
             //alert("No more entries!");
-            document.getElementById("resultadosbusq").innerHTML = nombres;
+            document.getElementById("resultadosbusq").innerHTML = infoLotes;
         }
     };
 
 }
 
 function cargarCombo() {
-    var objectStore = db.transaction("employee").objectStore("employee");
+    var objectStore = db.transaction("tablaLotes").objectStore("tablaLotes");
     var select = document.getElementById("claves")
     objectStore.openCursor().onsuccess = function (event) {
         var cursor = event.target.result;
 
         if (cursor) {
-            //alert("Name for id " + cursor.key + " is " + cursor.value.name + ", Age: " + cursor.value.age + ", Email: " + cursor.value.email);
+            //alert("campo for id " + cursor.key + " is " + cursor.value.campo + ", superficie: " + cursor.value.superficie + ", hibrido: " + cursor.value.hibrido);
             option = document.createElement('option');
             option.setAttribute('value', cursor.key);
             option.appendChild(document.createTextNode(cursor.key));
             select.appendChild(option);
             cursor.continue();
         } else {
-            alert("No more entries!");
+            //alert("No more entries!");
         }
     };
 
 }
 
 function search() {
-    var objectStore = db.transaction("employee").objectStore("employee");
+    var objectStore = db.transaction("tablaLotes").objectStore("tablaLotes");
     var nomu = document.getElementById("nombrebus").value;
-    let nombres = "Search: "
+    let infoLotes = "Search: "
     objectStore.openCursor().onsuccess = function (event) {
         var cursor = event.target.result;
 
         if (cursor) {
-            //alert("Name for id " + cursor.key + " is " + cursor.value.name + ", Age: " + cursor.value.age + ", Email: " + cursor.value.email);
-            if (cursor.value.name.toLowerCase().includes(nomu.toLowerCase())) {
-                //nombres = nombres + "-" + cursor.value.name
-                nombres = nombres + '<span class="mdl-chip"><span class="mdl-chip__text">' + cursor.value.name + '</span></span>'
+            //alert("campo for id " + cursor.key + " is " + cursor.value.campo + ", superficie: " + cursor.value.superficie + ", hibrido: " + cursor.value.hibrido);
+            if (cursor.value.campo.toLowerCase().includes(nomu.toLowerCase())) {
+                //nombres = nombres + "-" + cursor.value.campo
+                infoLotes = infoLotes + '<span class="mdl-chip"><span class="mdl-chip__text">' + cursor.value.campo + '</span></span>'
             }
 
             cursor.continue();
         } else {
             //alert("No more entries!");
-            document.getElementById("resultadosbusq").innerHTML = nombres;
+            document.getElementById("resultadosbusq").innerHTML = infoLotes;
         }
     };
 }
 
 function add() {
-    var idu = document.getElementById("idUser").value;
-    var nomu = document.getElementById("nombreUser").value;
-    var edadu = document.getElementById("edadUser").value;
-    var emailu = document.getElementById("emailUser").value;
-    var request = db.transaction(["employee"], "readwrite")
-        .objectStore("employee")
-        .add({ id: idu, name: nomu, age: edadu, email: emailu });
+    var idu = document.getElementById("idLote").value;
+    var nomu = document.getElementById("nombreCampo").value;
+    var edadu = document.getElementById("superficieLote").value;
+    var hibridou = document.getElementById("hibridoLote").value;
+    var request = db.transaction(["tablaLotes"], "readwrite")
+        .objectStore("tablaLotes")
+        .add({ id: idu, campo: nomu, superficie: edadu, hibrido: hibridou });
 
     request.onsuccess = function (event) {
-        alert(nomu + " has been added to your database.");
+        alert(idu + " fue agregado a la base.");
     };
     request.onerror = function (event) {
-        alert("Unable to add data\r\n" + nomu + " is aready exist in your database! ");
+        alert("No se pudo agregar \r\n" + idu + " ya existe en la base de datos! ");
     }
 }
 
 function edit() {
     var clave = document.getElementById("claveEditar").value;
     console.log(clave)
-    var transaction = db.transaction(["employee"]);
-    var objectStore = transaction.objectStore("employee");
+    var transaction = db.transaction(["tablaLotes"]);
+    var objectStore = transaction.objectStore("tablaLotes");
     var request = objectStore.get(clave);
     request.onerror = function (event) {
-        alert("Unable to retrieve data from database!");
+        alert("No se pudo leer la base de datos!");
     };
     request.onsuccess = function (event) {
         // Do something with the request.result!
-        console.log("Va bien entro al success")
-        var user = event.target.result;
-        console.log(user)
-        if (user !== undefined) {
-            document.getElementById("idUser").value = user.id;
-            document.getElementById("idUser").readOnly = true;
-            document.getElementById("nombreUser").value = user.name;
-            document.getElementById("edadUser").value = user.age;
-            document.getElementById("emailUser").value = user.email;
+        //console.log("Va bien entro al success")
+        var elemento = event.target.result;
+        console.log(elemento)
+        if (elemento !== undefined) {
+            document.getElementById("idLote").value = elemento.id;
+            document.getElementById("idLote").readOnly = true;
+            document.getElementById("nombreCampo").value = elemento.campo;
+            document.getElementById("superficieLote").value = elemento.superficie;
+            document.getElementById("hibridoLote").value = elemento.hibrido;
             document.getElementById("btnUpdate").style.visibility = "visible";
             document.getElementById("btnCancelUpdate").style.visibility = "visible";
             document.getElementById("btnAgregar").style.visibility = "hidden";
@@ -143,39 +143,39 @@ function edit() {
 }
 
 function update() {
-    var transaction = db.transaction(["employee"], "readwrite");
-    var objectStore = transaction.objectStore("employee");
-    var clave = document.getElementById("idUser").value;
+    var transaction = db.transaction(["tablaLotes"], "readwrite");
+    var objectStore = transaction.objectStore("tablaLotes");
+    var clave = document.getElementById("idLote").value;
     var request = objectStore.get(clave);
     alert(clave)
     request.onerror = function (event) {
-        alert("Unable to retrieve data from database!");
+        alert("No se pudo leer la base de datos!");
     };
     request.onsuccess = function (event) {
         // Do something with the request.result!
-        user = event.target.result;
-        var nomu = document.getElementById("nombreUser").value;
-        var edadu = document.getElementById("edadUser").value;
-        var emailu = document.getElementById("emailUser").value;
+        elemento = event.target.result;
+        var nomu = document.getElementById("nombreCampo").value;
+        var edadu = document.getElementById("superficieLote").value;
+        var hibridou = document.getElementById("hibridoLote").value;
 
-        user.name = nomu;
-        user.age = edadu;
-        user.email = emailu;
+        elemento.campo = nomu;
+        elemento.superficie = edadu;
+        elemento.hibrido = hibridou;
 
-        var putRequest = objectStore.put(user)
+        var putRequest = objectStore.put(elemento)
         putRequest.onsuccess = function (e) {
-            console.log("actualziado")
+            console.log("Actualziado")
         }
     };
-    var user;
-    var idu = document.getElementById("idUser").value;
+    var elemento;
+    var idu = document.getElementById("idLote").value;
 }
 
 function cancelUpdate() {
-    document.getElementById("idUser").value = "";
-    document.getElementById("nombreUser").value = "";
-    document.getElementById("edadUser").value = "";
-    document.getElementById("emailUser").value = "";
+    document.getElementById("idLote").value = "";
+    document.getElementById("nombreCampo").value = "";
+    document.getElementById("superficieLote").value = "";
+    document.getElementById("hibridoLote").value = "";
     document.getElementById("btnUpdate").style.visibility = "hidden";
     document.getElementById("btnAgregar").style.visibility = "visible";
     document.getElementById("btnCancelUpdate").style.visibility = "hidden";
@@ -183,12 +183,12 @@ function cancelUpdate() {
 
 function remove() {
     var clave = document.getElementById("claveeliminar").value;
-    var request = db.transaction(["employee"], "readwrite")
-        .objectStore("employee")
+    var request = db.transaction(["tablaLotes"], "readwrite")
+        .objectStore("tablaLotes")
         .delete(clave);
 
     request.onsuccess = function (event) {
-        alert(clave + " entry has been removed from your database.");
+        alert(clave + " se eliminó de la base de datos.");
     };
 }
 

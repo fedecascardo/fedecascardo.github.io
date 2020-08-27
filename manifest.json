@@ -4,9 +4,9 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "Empleados",
-    "short_name": "Empleados",
-    "description": "Gestion de Empleados",
+    "name": "Lotes",
+    "short_name": "Lotes",
+    "description": "Gestion de Lotes",
     "icons": [
         {
             "src": "img/icon-192x192.png",
