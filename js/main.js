@@ -45,13 +45,21 @@ request.onupgradeneeded = function (event) {
 
 function readAll() {
     var objectStore = db.transaction("tablaLotes").objectStore("tablaLotes");
-    let infoLotes = "Listado:"
+    let infoLotes = ""
     objectStore.openCursor().onsuccess = function (event) {
         var cursor = event.target.result;
 
         if (cursor) {
             //alert("campo for id " + cursor.key + " is " + cursor.value.campo + ", superficie: " + cursor.value.superficie + ", hibrido: " + cursor.value.hibrido);
-            infoLotes = infoLotes + '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">' + cursor.value.campo.charAt(0).toUpperCase() + '</span><span class="mdl-chip__text">' + cursor.value.campo + '</span></span>'
+            //infoLotes = infoLotes + '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">' + cursor.value.campo.charAt(0).toUpperCase() + '</span><span class="mdl-chip__text">' + cursor.value.campo + '</span></span>'
+            //`+ cursor.value.id + `
+            infoLotes = infoLotes + `<tr>
+            <th class="mdl-data-table__cell--non-numeric">`+ cursor.value.id + `</th>
+            <th>`+ cursor.value.campo + `</th>
+            <th>`+ cursor.value.superficie + `</th>
+            <th>`+ cursor.value.hibrido + `</th>
+            <th> <a class="mdl-list__item-secondary-action" onclick="javascript:removeClave('`+ cursor.value.id + `')"><i class="material-icons">send</i></a></th>
+          </tr>`
             cursor.continue();
         } else {
             //alert("No more entries!");
@@ -198,22 +206,33 @@ function remove() {
     };
 }
 
-function start(){
-registrarServiceWorker();
+function removeClave(c) {
+    var request = db.transaction(["tablaLotes"], "readwrite")
+        .objectStore("tablaLotes")
+        .delete(c);
+
+    request.onsuccess = function (event) {
+        alert(c + " se eliminó de la base de datos.");
+    };
 }
 
-function registrarServiceWorker(){
-    if('serviceWorker' in navigator){
-        window.addEventListener('load',()=>{
-            this.navigator.serviceWorker.register('/sw.js').then(reg=>{
+function start() {
+    registrarServiceWorker();
+    readAll();
+}
+
+function registrarServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            this.navigator.serviceWorker.register('/sw.js').then(reg => {
                 console.log('sw registrado');
-            }).catch(err=>{
+            }).catch(err => {
                 console.error("SW fallo");
             })
-        
+
         })
     }
 
 }
 
-window.addEventListener('DOMContentLoaded',start)
+window.addEventListener('DOMContentLoaded', start)
