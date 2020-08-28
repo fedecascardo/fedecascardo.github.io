@@ -14,7 +14,13 @@ if (!window.indexedDB) {
 
 const dataLotes = [
     { id: "VA1231A", campo: "Campo123", superficie: 35, hibrido: "Hibrido1" },
-    { id: "VA1231B", campo: "Campo123", superficie: 32, hibrido: "Hibrido2" }
+    { id: "VA1231B", campo: "Campo123", superficie: 32, hibrido: "Hibrido2" },
+    { id: "VA1231C", campo: "Campo123", superficie: 38, hibrido: "Hibrido3" },
+    { id: "VA1231D", campo: "Campo123", superficie: 47, hibrido: "Hibrido1" },
+    { id: "VA0776B", campo: "Campo123", superficie: 56, hibrido: "Hibrido1" },
+    { id: "VA0776C", campo: "Campo123", superficie: 86, hibrido: "Hibrido2" },
+    { id: "VA0776D", campo: "Campo123", superficie: 43, hibrido: "Hibrido3" },
+    { id: "VA0776E", campo: "Campo123", superficie: 24, hibrido: "Hibrido4" }
 ];
 var db;
 var request = window.indexedDB.open("newDatabase", 1);
