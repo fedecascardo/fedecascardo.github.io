@@ -20,7 +20,13 @@ const dataLotes = [
     { id: "VA0776B", campo: "Campo123", superficie: 56, hibrido: "Hibrido1" },
     { id: "VA0776C", campo: "Campo123", superficie: 86, hibrido: "Hibrido2" },
     { id: "VA0776D", campo: "Campo123", superficie: 43, hibrido: "Hibrido3" },
-    { id: "VA0776E", campo: "Campo123", superficie: 24, hibrido: "Hibrido4" }
+    { id: "VA0776E", campo: "Campo123", superficie: 24, hibrido: "Hibrido4" },
+    { id: "VB066C7", campo: "El Sesenta", superficie: 37.5, hibrido: "Hibrido8" },
+    { id: "VB066C8", campo: "El Sesenta", superficie: 24.5, hibrido: "Hibrido8" },
+    { id: "VB066C9", campo: "El Sesenta", superficie: 62.9, hibrido: "Hibrido9" },
+    { id: "VB011C7", campo: "El Once", superficie: 40.5, hibrido: "Hibrido6" },
+    { id: "VB011C8", campo: "El Once", superficie: 87.5, hibrido: "Hibrido6" },
+    { id: "VB011C9", campo: "El Once", superficie: 60.9, hibrido: "Hibrido6" }
 ];
 var db;
 var request = window.indexedDB.open("newDatabase", 1);
@@ -44,6 +50,7 @@ request.onupgradeneeded = function (event) {
 }
 
 function readAll() {
+    var db;
     var objectStore = db.transaction("tablaLotes").objectStore("tablaLotes");
     let infoLotes = ""
     objectStore.openCursor().onsuccess = function (event) {
@@ -58,7 +65,7 @@ function readAll() {
             <th>`+ cursor.value.campo + `</th>
             <th>`+ cursor.value.superficie + `</th>
             <th>`+ cursor.value.hibrido + `</th>
-            <th> <a class="mdl-list__item-secondary-action" onclick="javascript:removeClave('`+ cursor.value.id + `')"><i class="material-icons">send</i></a></th>
+            <th> <a class="mdl-list__item-secondary-action" onclick="javascript:seleccionar('`+ cursor.value.id + `')"><i class="material-icons">send</i></a></th>
           </tr>`
             cursor.continue();
         } else {
@@ -87,6 +94,10 @@ function cargarCombo() {
         }
     };
 
+}
+
+function seleccionar(clave) {
+    alert("Mensaje")
 }
 
 function search() {
