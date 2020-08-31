@@ -43,14 +43,15 @@ request.onsuccess = function (event) {
 request.onupgradeneeded = function (event) {
     var db = event.target.result;
     var objectStore = db.createObjectStore("tablaLotes", { keyPath: "id" });
-
     for (var i in dataLotes) {
         objectStore.add(dataLotes[i]);
     }
+
+    var objectStoreLoteActual = db.createObjectStore("loteActual", { keyPath: "identificador" });
+    objectStoreLoteActual.add({ identificador: 1, id: "", campo: "", superficie: 0, hibrido: "" });
 }
 
 function readAll() {
-    var db;
     var objectStore = db.transaction("tablaLotes").objectStore("tablaLotes");
     let infoLotes = ""
     objectStore.openCursor().onsuccess = function (event) {
@@ -96,9 +97,33 @@ function cargarCombo() {
 
 }
 
-function seleccionar(clave) {
-    alert("Mensaje")
+function mostrarCabeceraLote() {
+    var transaction = db.transaction(["loteActual"]);
+    var objectStore = transaction.objectStore("loteActual");
+    var request = objectStore.get(1);
+    request.onerror = function (event) {
+        alert("No se pudo leer la base de datos!");
+    };
+    request.onsuccess = function (event) {
+        console.log("Va bien entro al success")
+        var elemento = event.target.result;
+        //console.log(elemento)
+        if (elemento !== undefined) {
+            if(elemento.id!=="")
+            {
+                document.getElementById("infoLote").innerHTML = elemento.id + "-" +  elemento.campo + "-" + elemento.hibrido;
+            }
+            else
+            {
+                alert("no hay lote seleccionado")
+            }       
+        }
+        else{
+            alert("No se pudo leer el lote seleccionado")
+        }
+    };
 }
+
 
 function search() {
     var objectStore = db.transaction("tablaLotes").objectStore("tablaLotes");
@@ -139,9 +164,8 @@ function add() {
     }
 }
 
-function edit() {
-    var clave = document.getElementById("claveEditar").value;
-    console.log(clave)
+function seleccionar(clave) {
+    console.log("Seleccionada"+clave)
     var transaction = db.transaction(["tablaLotes"]);
     var objectStore = transaction.objectStore("tablaLotes");
     var request = objectStore.get(clave);
@@ -152,17 +176,34 @@ function edit() {
         // Do something with the request.result!
         //console.log("Va bien entro al success")
         var elemento = event.target.result;
-        console.log(elemento)
+        console.log("seleccionado" + elemento)
         if (elemento !== undefined) {
-            document.getElementById("idLote").value = elemento.id;
-            document.getElementById("idLote").readOnly = true;
-            document.getElementById("nombreCampo").value = elemento.campo;
-            document.getElementById("superficieLote").value = elemento.superficie;
-            document.getElementById("hibridoLote").value = elemento.hibrido;
-            document.getElementById("btnUpdate").style.visibility = "visible";
-            document.getElementById("btnCancelUpdate").style.visibility = "visible";
-            document.getElementById("btnAgregar").style.visibility = "hidden";
-            // show relevant buttons
+            var transaction2 = db.transaction(["loteActual"], "readwrite");
+            var objectStoreLoteActual = transaction2.objectStore("loteActual");
+            var request2 = objectStoreLoteActual.get(1);
+
+            request2.onerror = function (event) {
+                alert("No se pudo leer la base de datos!");
+            };
+            request2.onsuccess = function (event) {
+                // Do something with the request.result!
+                lote = event.target.result;        
+                lote.id = elemento.id;
+                lote.campo = elemento.campo;
+                lote.superficie = elemento.superficie;
+                lote.hibrido = elemento.hibrido;
+                //console.log(event)
+                //console.log(lote)
+                
+                var putRequest = objectStoreLoteActual.put(lote)
+                putRequest.onsuccess = function (e) {
+                    console.log("Actualizado el actual")
+                    document.location = 'comentario_lote.html'
+                }
+            };
+
+
+
         }
     };
 }
@@ -231,6 +272,11 @@ function start() {
     registrarServiceWorker();
     readAll();
 }
+
+function startComentarios() {
+    mostrarCabeceraLote();
+}
+
 
 function registrarServiceWorker() {
     if ('serviceWorker' in navigator) {
