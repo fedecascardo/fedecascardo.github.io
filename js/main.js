@@ -97,49 +97,34 @@ function cargarCombo() {
 
 }
 
-function mostrarCabeceraLote() {
-    var transaction = db.transaction(["loteActual"]);
-    var objectStore = transaction.objectStore("loteActual");
-    var request = objectStore.get(1);
-    request.onerror = function (event) {
-        alert("No se pudo leer la base de datos!");
-    };
-    request.onsuccess = function (event) {
-        console.log("Va bien entro al success")
-        var elemento = event.target.result;
-        //console.log(elemento)
-        if (elemento !== undefined) {
-            if(elemento.id!=="")
-            {
-                document.getElementById("infoLote").innerHTML = elemento.id + "-" +  elemento.campo + "-" + elemento.hibrido;
-            }
-            else
-            {
-                alert("no hay lote seleccionado")
-            }       
-        }
-        else{
-            alert("No se pudo leer el lote seleccionado")
-        }
-    };
-}
-
-
 function search() {
     var objectStore = db.transaction("tablaLotes").objectStore("tablaLotes");
     var nomu = document.getElementById("nombrebus").value;
-    let infoLotes = "Search: "
+    let infoLotes = ""
     objectStore.openCursor().onsuccess = function (event) {
         var cursor = event.target.result;
 
         if (cursor) {
             //alert("campo for id " + cursor.key + " is " + cursor.value.campo + ", superficie: " + cursor.value.superficie + ", hibrido: " + cursor.value.hibrido);
             if (cursor.value.campo.toLowerCase().includes(nomu.toLowerCase())) {
-                //nombres = nombres + "-" + cursor.value.campo
-                infoLotes = infoLotes + '<span class="mdl-chip"><span class="mdl-chip__text">' + cursor.value.campo + '</span></span>'
+                //alert("campo for id " + cursor.key + " is " + cursor.value.campo + ", superficie: " + cursor.value.superficie + ", hibrido: " + cursor.value.hibrido);
+                //infoLotes = infoLotes + '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">' + cursor.value.campo.charAt(0).toUpperCase() + '</span><span class="mdl-chip__text">' + cursor.value.campo + '</span></span>'
+                //`+ cursor.value.id + `
+                infoLotes = infoLotes + `<tr>
+                <th class="mdl-data-table__cell--non-numeric">`+ cursor.value.id + `</th>
+                <th>`+ cursor.value.campo + `</th>
+                <th>`+ cursor.value.superficie + `</th>
+                <th>`+ cursor.value.hibrido + `</th>
+                <th> <a class="mdl-list__item-secondary-action" onclick="javascript:seleccionar('`+ cursor.value.id + `')"><i class="material-icons">send</i></a></th>
+              </tr>`
+                cursor.continue();
+            }
+                
+            else {
+                cursor.continue();
             }
 
-            cursor.continue();
+            
         } else {
             //alert("No more entries!");
             document.getElementById("resultadosbusq").innerHTML = infoLotes;
@@ -198,7 +183,7 @@ function seleccionar(clave) {
                 var putRequest = objectStoreLoteActual.put(lote)
                 putRequest.onsuccess = function (e) {
                     console.log("Actualizado el actual")
-                    document.location = 'comentario_lote.html'
+                    document.getElementById("idLote").innerHTML = lote.id + "-" +  lote.campo + "-" + lote.hibrido;
                 }
             };
 
@@ -272,11 +257,6 @@ function start() {
     registrarServiceWorker();
     readAll();
 }
-
-function startComentarios() {
-    mostrarCabeceraLote();
-}
-
 
 function registrarServiceWorker() {
     if ('serviceWorker' in navigator) {
