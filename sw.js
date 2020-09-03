@@ -9,5 +9,6 @@ self.addEventListener('activate', e=>{
 self.addEventListener('fetch', e=>{
     console.log('SW fetch');   
     let request =  e.request;
+    console.log(request.url)
     e.respondWith(fetch(request))
 })
