@@ -262,9 +262,9 @@ function registrarServiceWorker() {
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             this.navigator.serviceWorker.register('/sw.js').then(reg => {
-                console.log('sw registrado');
+                console.log('SW registrado');
             }).catch(err => {
-                console.error("SW fallo");
+                console.error("Ha ocurrido un error al registrar el Service Worker");
             })
 
         })
