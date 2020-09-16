@@ -137,6 +137,7 @@ function add() {
     var nomu = document.getElementById("nombreCampo").value;
     var edadu = document.getElementById("superficieLote").value;
     var hibridou = document.getElementById("hibridoLote").value;
+    alert(idu)
     var request = db.transaction(["tablaLotes"], "readwrite")
         .objectStore("tablaLotes")
         .add({ id: idu, campo: nomu, superficie: edadu, hibrido: hibridou });
@@ -183,7 +184,7 @@ function seleccionar(clave) {
                 var putRequest = objectStoreLoteActual.put(lote)
                 putRequest.onsuccess = function (e) {
                     console.log("Actualizado el actual")
-                    document.getElementById("idLote").innerHTML = lote.id + "-" +  lote.campo + "-" + lote.hibrido;
+                    document.getElementById("idLoteCabecera").innerHTML = lote.id + "-" +  lote.campo + "-" + lote.hibrido;
                 }
             };
 
