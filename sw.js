@@ -11,9 +11,10 @@ const archivos=[
 self.addEventListener('install',async function(e){
     console.log('SW install');    
     //Agregar los archivos a la cache
-    const cache = await caches.open('SUPER_LISTA_CACHE');
-    cache.add('/css/main.css');
-
+    e.waitUntil((async function(){
+        const cache = await caches.open('SUPER_LISTA_CACHE');
+        return cache.addAll(archivos);
+    })()); 
 })
 
 self.addEventListener('activate', e=> {
@@ -26,7 +27,7 @@ self.addEventListener('fetch', e=>{
     //Responder priorizando la caché por sobre la red - cache first
 
     console.log('SW fetch');   
-    console.log(fetchEvent);   
+    console.log(fetchEvent.request.url);   
     let request =  e.request;
     console.log(request.url)
     let response;
