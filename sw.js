@@ -1,16 +1,22 @@
-self.addEventListener('install',async function(e){
-    console.log('SW install');    
-    //Agregar los archivos a la cache
-    e.waitUntil((async function(){
-        const cache = await caches.open('CACHE_APP_LOTES');
-         cache.add('https://fedecascardo.github.io/css/main.css');
-         cache.add('https://fedecascardo.github.io/index.html');
-         cache.add('https://fedecascardo.github.io/');
-         cache.add('https://fedecascardo.github.iofavicon.ico');
-         cache.add('https://fedecascardo.github.iomanifest.json');
-         cache.add('https://fedecascardo.github.io/js/main.js');
-    })()); 
-})
+
+self.addEventListener('install', function(event) {
+    console.log('SW install');  
+    event.waitUntil(
+      caches.open(cacheName).then(function(cache) {
+        return cache.addAll(
+          [
+            'https://fedecascardo.github.io/css/main.css',
+            'https://fedecascardo.github.io/index.html',
+            'https://fedecascardo.github.io/',
+            'https://fedecascardo.github.iofavicon.ico',
+            'https://fedecascardo.github.iomanifest.json',
+            'https://fedecascardo.github.io/js/main.js'
+          ]
+        );
+      })
+    );
+  });
+
 
 self.addEventListener('activate', e=> {
     console.log('SW Activate');    
