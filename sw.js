@@ -4,7 +4,6 @@ const archivos=[
     prefix+'/css/main.css',
     prefix+'/index.html',
     prefix+'/',
-    prefix+'sw.js',
     prefix+'favicon.ico',
     prefix+'manifest.json',
     prefix+'/js/main.js'
