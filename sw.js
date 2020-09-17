@@ -28,7 +28,7 @@ self.addEventListener('fetch', e=>{
     //Intercepta una petición http
 
     console.log('SW fetch');   
-    console.log(fetchEvent.request.url);   
+    console.log(e.request.url);   
     //let request =  e.request;
     //console.log(request.url)
     //let response;
