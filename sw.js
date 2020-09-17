@@ -1,12 +1,10 @@
-const prefix = 'https://fedecascardo.github.io';
-
 const archivos=[
-    prefix+'/css/main.css',
-    prefix+'/index.html',
-    prefix+'/',
-    prefix+'favicon.ico',
-    prefix+'manifest.json',
-    prefix+'/js/main.js'
+    'https://fedecascardo.github.io/css/main.css',
+    'https://fedecascardo.github.io/index.html',
+    'https://fedecascardo.github.io/',
+    'https://fedecascardo.github.iofavicon.ico',
+    'https://fedecascardo.github.iomanifest.json',
+    'https://fedecascardo.github.io/js/main.js'
 ]
 
 self.addEventListener('install',async function(e){
