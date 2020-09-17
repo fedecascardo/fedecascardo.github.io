@@ -1,11 +1,13 @@
+const prefix = 'https://fedecascardo.github.io';
+
 const archivos=[
-    '/css/main.css',
-    '/index.html',
-    '/',
-    'sw.js',
-    'favicon.ico',
-    'manifest.json',
-    '/js/main.js'
+    prefix+'/css/main.css',
+    prefix+'/index.html',
+    prefix+'/',
+    prefix+'sw.js',
+    prefix+'favicon.ico',
+    prefix+'manifest.json',
+    prefix+'/js/main.js'
 ]
 
 self.addEventListener('install',async function(e){
@@ -27,8 +29,7 @@ self.addEventListener('fetch', e=>{
     //Responder priorizando la caché por sobre la red - cache first
     //Intercepta una petición http
 
-    console.log('SW fetch');   
-    console.log(e.request.url);   
+    console.log('SW fetch');  
     //let request =  e.request;
     //console.log(request.url)
     //let response;
