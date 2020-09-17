@@ -1,18 +1,14 @@
-const archivos=[
-    'https://fedecascardo.github.io/css/main.css',
-    'https://fedecascardo.github.io/index.html',
-    'https://fedecascardo.github.io/',
-    'https://fedecascardo.github.iofavicon.ico',
-    'https://fedecascardo.github.iomanifest.json',
-    'https://fedecascardo.github.io/js/main.js'
-]
-
 self.addEventListener('install',async function(e){
     console.log('SW install');    
     //Agregar los archivos a la cache
     e.waitUntil((async function(){
         const cache = await caches.open('CACHE_APP_LOTES');
-        return cache.addAll(archivos);
+        return cache.add('https://fedecascardo.github.io/css/main.css');
+        return cache.add('https://fedecascardo.github.io/index.html');
+        return cache.add('https://fedecascardo.github.io/');
+        return cache.add('https://fedecascardo.github.iofavicon.ico');
+        return cache.add('https://fedecascardo.github.iomanifest.json');
+        return cache.add('https://fedecascardo.github.io/js/main.js');
     })()); 
 })
 
@@ -22,10 +18,8 @@ self.addEventListener('activate', e=> {
 })
 
 self.addEventListener('fetch', e=>{
-
     //Responder priorizando la caché por sobre la red - cache first
     //Intercepta una petición http
-
     console.log('SW fetch');  
     //let request =  e.request;
     //console.log(request.url)
@@ -38,7 +32,4 @@ self.addEventListener('fetch', e=>{
         }
     )
     e.respondWith(respuesta);
-       
-    
-
 })
