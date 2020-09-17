@@ -1,6 +1,5 @@
 
 self.addEventListener('install', function(event) {
-    console.log('SW install');  
     event.waitUntil(
       caches.open('CACHE_APP_LOTE').then(function(cache) {
         return cache.addAll(
