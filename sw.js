@@ -1,21 +1,19 @@
-
-self.addEventListener('install', function(event) {
+this.addEventListener('install', function(event) {
     event.waitUntil(
       caches.open('CACHE_APP_LOTE').then(function(cache) {
-        return cache.addAll(
-          [
+        return cache.addAll([
             'https://fedecascardo.github.io/css/main.css',
             'https://fedecascardo.github.io/index.html',
             'https://fedecascardo.github.io/',
             'https://fedecascardo.github.iofavicon.ico',
             'https://fedecascardo.github.iomanifest.json',
             'https://fedecascardo.github.io/js/main.js'
-          ]
-        );
-      })
-    );
-  });
+        ]);
+    })
+  );
+});
 
+  //CACHE_APP_LOTE
 
 self.addEventListener('activate', e=> {
     console.log('SW Activate');    
