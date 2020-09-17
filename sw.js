@@ -12,7 +12,7 @@ self.addEventListener('install',async function(e){
     console.log('SW install');    
     //Agregar los archivos a la cache
     e.waitUntil((async function(){
-        const cache = await caches.open('SUPER_LISTA_CACHE');
+        const cache = await caches.open('CACHE_APP_LOTES');
         return cache.addAll(archivos);
     })()); 
 })
@@ -25,12 +25,24 @@ self.addEventListener('activate', e=> {
 self.addEventListener('fetch', e=>{
 
     //Responder priorizando la caché por sobre la red - cache first
+    //Intercepta una petición http
 
     console.log('SW fetch');   
     console.log(fetchEvent.request.url);   
-    let request =  e.request;
-    console.log(request.url)
-    let response;
+    //let request =  e.request;
+    //console.log(request.url)
+    //let response;
+    //Esto sería el comportamiento por defecto. Responder con e.request
+    //e.respondWith(fetch(e.request));
+    const respuesta = caches.open('CACHE_APP_LOTES').then(
+        cache => {
+            caches.match(e.request.url)
+        }
+    )
+    e.respondWith(respuesta);
+        
+    }
+    
+    
 
-    e.respondWith(fetch(request))
 })
