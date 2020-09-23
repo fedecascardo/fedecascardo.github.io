@@ -27,7 +27,6 @@ self.addEventListener('fetch', e=>{
     //let response;
     //Esto sería el comportamiento por defecto. Responder con e.request
     //e.respondWith(fetch(e.request));
-    alert("Se dispara fetch")
     console.log(e.request.url)
     const respuesta = caches.open('CACHE_APP_LOTES').then(
         cache => {
