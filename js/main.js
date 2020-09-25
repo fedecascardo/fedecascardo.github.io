@@ -80,7 +80,7 @@ function search() {
 
         if (cursor) {
             //alert("campo for id " + cursor.key + " is " + cursor.value.campo + ", superficie: " + cursor.value.superficie + ", hibrido: " + cursor.value.hibrido);
-            if (cursor.value.campo.toLowerCase().includes(nomu.toLowerCase())) {
+            if ((cursor.value.campo.toLowerCase().includes(nomu.toLowerCase())) || (cursor.value.id.toLowerCase().includes(nomu.toLowerCase()))) {
                 //alert("campo for id " + cursor.key + " is " + cursor.value.campo + ", superficie: " + cursor.value.superficie + ", hibrido: " + cursor.value.hibrido);
                 //infoLotes = infoLotes + '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">' + cursor.value.campo.charAt(0).toUpperCase() + '</span><span class="mdl-chip__text">' + cursor.value.campo + '</span></span>'
                 //`+ cursor.value.id + `
@@ -142,7 +142,10 @@ function cambiaSolapa(solapa) {
         }
         else
         {
-            console.log("lote" + event.target.result.id.toLowerCase());
+            var lote=event.target.result;
+            console.log("lote " + lote.id.toLowerCase());
+            document.getElementById("idLoteCabecera").innerHTML = lote.id + "-" + lote.campo + "-" + lote.hibrido;
+            document.getElementById("idLoteCabeceraSiembra").innerHTML = lote.id + "-" + lote.campo + "-" + lote.hibrido;
         }
 
     };
@@ -266,6 +269,26 @@ function registrarServiceWorker() {
         })
     }
 
+}
+
+function cierreLote(){
+    var estado = document.getElementById("switch-1").checked;
+    console.log(estado);
+    if(estado==false){
+        alert("No puede abrir un lote que ya cerró")
+        document.getElementById("switch-1").checked = true;
+    }
+    else{
+        if (confirm('Esta seguro que desea cerrar el lote?')) {
+            // Save it!
+            document.getElementById("switch-1").checked = true;
+            console.log('Thing was saved to the database.');
+          } else {
+            // Do nothing!
+            document.getElementById("switch-1").checked = false;
+            console.log('Thing was not saved to the database.');
+          }
+    }
 }
 
 document.addEventListener('readystatechange', event => { 

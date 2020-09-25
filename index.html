@@ -80,29 +80,37 @@
                         </table>
                     </div>
                 </section>
+
+
+
                 <section class="mdl-layout__tab-panel" id="scroll-tab-3">
                     <div id="idLoteCabeceraSiembra" class="download"></div>
                     <div class="page-content">
+                        <h3>Fechas de siembra</h3>
                         <div class="mdl-grid">
 
                             <div class="mdl-cell mdl-cell--3-col">
                                 <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-                                    <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
+                                    <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1"
+                                        checked>
                                     <span class="mdl-radio__label">HF</span>
-                                  </label>
-                                  <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-                                    <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2">
+                                </label>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+                                    <input type="radio" id="option-2" class="mdl-radio__button" name="options"
+                                        value="2">
                                     <span class="mdl-radio__label">M1</span>
-                                  </label>
-                                  <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-                                    <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2">
+                                </label>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+                                    <input type="radio" id="option-2" class="mdl-radio__button" name="options"
+                                        value="2">
                                     <span class="mdl-radio__label">M2</span>
-                                  </label>
-                                  <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-                                    <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2">
+                                </label>
+                                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+                                    <input type="radio" id="option-2" class="mdl-radio__button" name="options"
+                                        value="2">
                                     <span class="mdl-radio__label">M3</span>
-                                  </label>
-                            </div>                        
+                                </label>
+                            </div>
 
                             <div class="mdl-cell mdl-cell--3-col">
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -111,21 +119,6 @@
                                 </div>
                             </div>
 
-                            <div class="mdl-cell mdl-cell--3-col">
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?"
-                                        id="superficieLote">
-                                    <label class="mdl-textfield__label" for="superficieLote">Superficie...</label>
-                                    <span class="mdl-textfield__error">Input is not a number!</span>
-                                </div>
-                            </div>
-
-                            <div class="mdl-cell mdl-cell--3-col">
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" type="text" id="hibridoLote">
-                                    <label class="mdl-textfield__label" for="hibridoLote">Híbrido...</label>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="mdl-grid">
@@ -134,26 +127,55 @@
                                         class="mdl-button mdl-js-button mdl-button--primary">Agregar
                                         Info</button>
                                 </span></div>
-                            <div class="mdl-cell mdl-cell--4-col"><span>
-                                    <button onclick="update()" id="btnUpdate"
-                                        class="mdl-button mdl-js-button mdl-button--primary">Actualizar</button>
-                                </span></div>
-                            <div class="mdl-cell mdl-cell--4-col"><span>
-                                    <button onclick="cancelUpdate()" id="btnCancelUpdate"
-                                        class="mdl-button mdl-js-button mdl-button--primary">Cancelar</button>
-                                </span></div>
                         </div>
-                        <h3>Editar</h3>
+                        <h3>Origenes de siembra</h3>
+                        <div class="mdl-cell mdl-cell--3-col">
+                            <label for="cars">Origen:</label>
+
+                            <select name="cars" id="cars">
+                                <option value="volvo">Origen 1</option>
+                                <option value="saab">Origen 2</option>
+                                <option value="mercedes">Origen 3</option>
+                                <option value="audi">Origen 4</option>
+                            </select>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*?" id="sample4">
+                            <label class="mdl-textfield__label" for="sample4">Bolsas...</label>
+                            <span class="mdl-textfield__error">No ha ingresado un valor correcto!</span>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample4">
+                            <label class="mdl-textfield__label" for="sample4">Densidad [semillas/metro]...</label>
+                            <span class="mdl-textfield__error">No ha ingresado un valor correcto!</span>
+                        </div>
                         <span>
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" id="claveEditar">
-                                <label class="mdl-textfield__label" for="claveEditar">Clave...</label>
-                            </div>
+                            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+                                <i class="material-icons">add</i>
+                            </button>
                         </span>
-                        <span>
-                            <button onclick="edit()" class="mdl-button mdl-js-button mdl-button--primary">Edit
-                                data</button>
-                        </span>
+
+                        <table class="mdl-data-table mdl-js-data-table">
+                            <thead>
+                                <tr>
+                                    <th class="mdl-data-table__cell--non-numeric">Lote</th>
+                                    <th>Cant</th>
+                                    <th>Dens</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="origenesSembrados">
+
+                            </tbody>
+                        </table>
+                        
+                        <h3>Cierre de siembra</h3>
+                        <div class="mdl-cell mdl-cell--3-col">
+                            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+                                <input type="checkbox" id="switch-1" class="mdl-switch__input" onchange = "cierreLote()">
+                                <span class="mdl-switch__label"></span>
+                              </label>
+                        </div>
 
                     </div>
                 </section>
