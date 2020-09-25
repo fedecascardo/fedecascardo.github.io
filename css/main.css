@@ -37,3 +37,13 @@ h1, h2, h3, h4 {
   .demo-card-event > .mdl-card__actions > .mdl-button {
     color: #fff;
   }
+
+.download {
+  background-color: #424242 !important;
+  font-size: 12px;
+  text-transform: uppercase;
+  text-align: center;
+  color: #fff;
+  box-sizing: border-box;
+  border-bottom: 3px solid transparent;
+}

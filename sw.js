@@ -5,7 +5,8 @@ this.addEventListener('install', function(event) {
             'https://fedecascardo.github.io/css/main.css',
             'https://fedecascardo.github.io/index.html',
             'https://fedecascardo.github.io/',
-            'https://fedecascardo.github.io/js/main.js'
+            'https://fedecascardo.github.io/js/main.js',
+            'https://fedecascardo.github.io/favicon.ico'
         ]);
     })
   );

@@ -51,32 +51,6 @@ request.onupgradeneeded = function (event) {
     objectStoreLoteActual.add({ identificador: 1, id: "", campo: "", superficie: 0, hibrido: "" });
 }
 
-function readAll() {
-    var objectStore = db.transaction("tablaLotes").objectStore("tablaLotes");
-    let infoLotes = ""
-    objectStore.openCursor().onsuccess = function (event) {
-        var cursor = event.target.result;
-
-        if (cursor) {
-            //alert("campo for id " + cursor.key + " is " + cursor.value.campo + ", superficie: " + cursor.value.superficie + ", hibrido: " + cursor.value.hibrido);
-            //infoLotes = infoLotes + '<span class="mdl-chip mdl-chip--contact"><span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">' + cursor.value.campo.charAt(0).toUpperCase() + '</span><span class="mdl-chip__text">' + cursor.value.campo + '</span></span>'
-            //`+ cursor.value.id + `
-            infoLotes = infoLotes + `<tr>
-            <th class="mdl-data-table__cell--non-numeric">`+ cursor.value.id + `</th>
-            <th>`+ cursor.value.campo + `</th>
-            <th>`+ cursor.value.superficie + `</th>
-            <th>`+ cursor.value.hibrido + `</th>
-            <th> <a class="mdl-list__item-secondary-action" onclick="javascript:seleccionar('`+ cursor.value.id + `')"><i class="material-icons">send</i></a></th>
-          </tr>`
-            cursor.continue();
-        } else {
-            //alert("No more entries!");
-            document.getElementById("resultadosbusq").innerHTML = infoLotes;
-        }
-    };
-
-}
-
 function cargarCombo() {
     var objectStore = db.transaction("tablaLotes").objectStore("tablaLotes");
     var select = document.getElementById("claves")
@@ -115,19 +89,20 @@ function search() {
                 <th>`+ cursor.value.campo + `</th>
                 <th>`+ cursor.value.superficie + `</th>
                 <th>`+ cursor.value.hibrido + `</th>
-                <th> <a class="mdl-list__item-secondary-action" onclick="javascript:seleccionar('`+ cursor.value.id + `')"><i class="material-icons">send</i></a></th>
+                <th> <a class="mdl-list__item-secondary-action" onclick="javascript:seleccionar('`+ cursor.value.id + `')"><i class="material-icons">open_in_browser</i></a></th>
               </tr>`
                 cursor.continue();
             }
-                
+
             else {
                 cursor.continue();
             }
 
-            
+
         } else {
             //alert("No more entries!");
             document.getElementById("resultadosbusq").innerHTML = infoLotes;
+            document.getElementById("nombrebus").value = "";
         }
     };
 }
@@ -150,8 +125,32 @@ function add() {
     }
 }
 
+function cambiaSolapa(solapa) {
+    console.log("Cambio a solapa" + solapa)
+    var transaction = db.transaction(["loteActual"]);
+    var objectStore = transaction.objectStore("loteActual");
+    var request = objectStore.get(1);
+    request.onerror = function (event) {
+        alert("No se pudo leer la base de datos!");
+    };
+    request.onsuccess = function (event) {
+        console.log("seleccionado")
+        console.log(event.target.result);
+
+        if(event.target.result.campo.toLowerCase()==""){
+            console.log("Lote vacío");
+        }
+        else
+        {
+            console.log("lote" + event.target.result.id.toLowerCase());
+        }
+
+    };
+
+}
+
 function seleccionar(clave) {
-    console.log("Seleccionada"+clave)
+    console.log("Seleccionada" + clave)
     var transaction = db.transaction(["tablaLotes"]);
     var objectStore = transaction.objectStore("tablaLotes");
     var request = objectStore.get(clave);
@@ -173,18 +172,19 @@ function seleccionar(clave) {
             };
             request2.onsuccess = function (event) {
                 // Do something with the request.result!
-                lote = event.target.result;        
+                lote = event.target.result;
                 lote.id = elemento.id;
                 lote.campo = elemento.campo;
                 lote.superficie = elemento.superficie;
                 lote.hibrido = elemento.hibrido;
                 //console.log(event)
                 //console.log(lote)
-                
+
                 var putRequest = objectStoreLoteActual.put(lote)
                 putRequest.onsuccess = function (e) {
                     console.log("Actualizado el actual")
-                    document.getElementById("idLoteCabecera").innerHTML = lote.id + "-" +  lote.campo + "-" + lote.hibrido;
+                    document.getElementById("idLoteCabecera").innerHTML = lote.id + "-" + lote.campo + "-" + lote.hibrido;
+                    document.getElementById("idLoteCabeceraSiembra").innerHTML = lote.id + "-" + lote.campo + "-" + lote.hibrido;
                 }
             };
 
@@ -254,11 +254,6 @@ function removeClave(c) {
     };
 }
 
-function start() {
-    registrarServiceWorker();
-    readAll();
-}
-
 function registrarServiceWorker() {
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -273,4 +268,16 @@ function registrarServiceWorker() {
 
 }
 
-window.addEventListener('DOMContentLoaded', start)
+document.addEventListener('readystatechange', event => { 
+  
+    if (event.target.readyState === "interactive") {   //does same as:  ..addEventListener("DOMContentLoaded"..
+        //alert("hi 1");
+    }
+
+    // When window loaded ( external resources are loaded too- `css`,`src`, etc...) 
+    if (event.target.readyState === "complete") {
+        //alert("hi 2");
+        search();
+        registrarServiceWorker();
+    }
+});
